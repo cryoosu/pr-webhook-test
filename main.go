@@ -7,12 +7,17 @@ import (
 )
 
 func main() {
-	list := ds.NewList()
-	list.Push(1)
-	list.Push(2)
-	list.Push(3)
-	list.Push(4)
-	list.Push(5)
+	list := ds.NewList(1, 2, 3, 4, 5)
+	i, ok := list.Pop()
+	if ok {
+		fmt.Printf("Popped: %d\n", i)
+	}
+
+	i, ok = list.Shift()
+	if ok {
+		fmt.Printf("Shifted: %d\n", i)
+	}
+
 	fmt.Printf("Items: %d\n", list.GetAll())
 	fmt.Printf("Len:%d\tMax Items:%d", list.Length(), list.MaxSize())
 }

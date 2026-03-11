@@ -6,11 +6,20 @@ type List struct {
 	maxSize int
 }
 
-func NewList() List {
+func NewList(items ...int) List {
+	var mem []int
+
+	if len(items) > 0 {
+		mem = make([]int, len(items))
+		copy(mem, items)
+	} else {
+		mem = make([]int, 0, 1)
+	}
+
 	return List{
-		mem:     make([]int, 1),
-		size:    0,
-		maxSize: 1,
+		mem:     mem,
+		size:    len(items),
+		maxSize: cap(mem),
 	}
 }
 
@@ -54,4 +63,15 @@ func (l *List) Pop() (int, bool) {
 	l.size--
 
 	return last, true
+}
+
+func (l *List) Shift() (int, bool) {
+	if l.size == 0 {
+		return 0, false
+	}
+	first := l.mem[0]
+	l.mem = append(l.mem[1:], []int{}...)
+	l.size--
+
+	return first, true
 }
