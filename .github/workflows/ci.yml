@@ -1,0 +1,24 @@
+name: CI Webhook Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  test-failure:
+    name: Intentional Failure Job
+    runs-on: ubuntu-latest
+    # Only run if it's a pull request or an issue comment on a pull request
+    if: github.event.issue.pull_request || github.event_name == 'pull_request'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Failing Step
+        run: |
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "This pipeline is deliberately designed to fail to test GitHub webhooks."
+          echo "Exiting with code 1..."
+          exit 1
