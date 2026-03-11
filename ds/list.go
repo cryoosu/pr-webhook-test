@@ -75,3 +75,20 @@ func (l *List) Shift() (int, bool) {
 
 	return first, true
 }
+
+func (l *List) Unshift(item int) {
+	if l.maxSize < l.size+1 {
+		l.mem = append(l.mem, make([]int, l.maxSize)...)
+		l.maxSize = l.maxSize * 2
+	}
+
+	last := item
+
+	for i := range l.mem {
+		curr := l.mem[i]
+		l.mem[i] = last
+		last = curr
+	}
+
+	l.size++
+}

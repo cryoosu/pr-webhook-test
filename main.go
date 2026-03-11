@@ -18,6 +18,8 @@ func main() {
 		fmt.Printf("Shifted: %d\n", i)
 	}
 
+	list.Unshift(6)
+
 	fmt.Printf("Items: %d\n", list.GetAll())
 	fmt.Printf("Len:%d\tMax Items:%d", list.Length(), list.MaxSize())
 }
